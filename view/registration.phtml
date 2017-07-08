@@ -1,0 +1,13 @@
+<form action="/?r=registration" method="post">
+    <label for="email">Email:</label>
+    <input id="email" type="text" name="email" placeholder="email" 
+        <?php if (!empty($view['email'])): ?>value="<?php echo htmlspecialchars($view['email']) ?>"<?php endif ?> 
+        /><br />
+    <label for="email_confirmation">Confirm email:</label>
+    <input id="email_confirmation" type="text" name="email_confirmation" placeholder="email confirmation" /><br />
+    <label for="pqssword">Password:</label>
+    <input name="password" type="password" name="password" /><br />
+    <label for="password_confirmation">Confirm password:</label>
+    <input id="password_confirmation" type="password" name="password_confirmation" /><br />
+    <input type="submit" />
+</form>

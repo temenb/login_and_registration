@@ -1,0 +1,18 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title><?php echo $route ?></title>
+    </head>
+    <body>
+        <?php if (!empty($view['messages']['errors']) && is_array($view['messages']['errors'])): ?>
+            <?php foreach ($view['messages']['errors'] as $text): ?>
+                <?php echo htmlspecialchars($text) ?><br />
+            <?php endforeach ?>
+        <?php endif ?>
+
+        <?php if (!empty($view['messages']['success']) && is_array($view['messages']['success'])): ?>
+            <?php foreach ($view['messages']['success'] as $text): ?>
+                <?php echo htmlspecialchars($text) ?><br />
+            <?php endforeach ?>
+        <?php endif ?>
+        
