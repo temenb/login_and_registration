@@ -1,17 +1,17 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
     <head>
-        <title><?php echo $route ?></title>
+        <title><?php echo $this->title ?></title>
     </head>
     <body>
-        <?php if (!empty($view['messages']['errors']) && is_array($view['messages']['errors'])): ?>
-            <?php foreach ($view['messages']['errors'] as $text): ?>
+        <?php if (!empty($this->messages['errors']) && is_array($this->messages['errors'])): ?>
+            <?php foreach ($this->messages['errors'] as $text): ?>
                 <?php echo htmlspecialchars($text) ?><br />
             <?php endforeach ?>
         <?php endif ?>
 
-        <?php if (!empty($view['messages']['success']) && is_array($view['messages']['success'])): ?>
-            <?php foreach ($view['messages']['success'] as $text): ?>
+        <?php if (!empty($this->messages['success']) && is_array($this->messages['success'])): ?>
+            <?php foreach ($this->messages['success'] as $text): ?>
                 <?php echo htmlspecialchars($text) ?><br />
             <?php endforeach ?>
         <?php endif ?>

@@ -1,18 +1,13 @@
 <?php
 
-$dbLink = require 'db/connect.php';
+require_once 'db/connect.php';
+require_once 'lib/router.php';
+require_once 'lib/app.php';
 
-define('DEFAULT_ROUTE', 'login');
+$routerConfig = require 'config/router.php';
 
-$route = (string) isset($_REQUEST['r']) ? $_REQUEST['r'] : DEFAULT_ROUTE;
-$scriptFilename = 'script' . DIRECTORY_SEPARATOR . $route . '.php';
-$viewFilename = 'view' . DIRECTORY_SEPARATOR . $route . '.phtml';
-if (!file_exists($scriptFilename) || !file_exists($viewFilename)) {
-    $route = DEFAULT_ROUTE;
-}
+$router = new Router($routerConfig);
+$router->setDefaultRoute('');
+$app = new Application($router);
 
-$view = array();
-require $scriptFilename; //find voulnerability in this code
-require_once 'view/header.phtml';
-require $viewFilename; //find voulnerability in this code
-require_once 'view/footer.phtml';
+$app->run();

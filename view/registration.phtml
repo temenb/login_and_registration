@@ -1,7 +1,7 @@
 <form action="/?r=registration" method="post">
     <label for="email">Email:</label>
     <input id="email" type="text" name="email" placeholder="email" 
-        <?php if (!empty($view['email'])): ?>value="<?php echo htmlspecialchars($view['email']) ?>"<?php endif ?> 
+        value="<?php echo htmlspecialchars($this->email) ?>"
         /><br />
     <label for="email_confirmation">Confirm email:</label>
     <input id="email_confirmation" type="text" name="email_confirmation" placeholder="email confirmation" /><br />
