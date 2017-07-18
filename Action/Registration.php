@@ -1,13 +1,11 @@
 <?php
 
-require_once 'action/abstract.php';
-
-class ActionRegistration extends ActionAbstract
+class Action_Registration extends Action_Abstract
 {
 
     public $title = 'registration';
 
-    public $viewTemplate = 'view/registration.phtml';
+    public $viewTemplate = 'View/registration.phtml';
 
     public function run()
     {

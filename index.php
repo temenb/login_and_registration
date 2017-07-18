@@ -1,13 +1,13 @@
 <?php
 
-require_once 'db/connect.php';
-require_once 'lib/router.php';
-require_once 'lib/app.php';
+require_once 'Lib/spl_auto_loader.php';
 
-$routerConfig = require 'config/router.php';
+$routerConfig = require 'Config/router.php';
 
 $router = new Router($routerConfig);
 $router->setDefaultRoute('');
-$app = new Application($router);
+
+session_start();
+$app = new App($router);
 
 $app->run();

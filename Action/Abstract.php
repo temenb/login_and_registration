@@ -1,15 +1,14 @@
 <?php
 
-require_once 'action/iaction.php';
 
-abstract class ActionAbstract implements IAction {
+abstract class Action_Abstract implements Action_IAction {
 
     public $messages = array(
         'errors' => array(),
         'success' => array(),
     );
-    public $headerTemplate = 'view/header.phtml';
-    public $footerTemplate = 'view/footer.phtml';
+    public $headerTemplate = 'View/header.phtml';
+    public $footerTemplate = 'View/footer.phtml';
     public $viewTemplate;
 
     private $_view = array();

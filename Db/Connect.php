@@ -1,6 +1,6 @@
 <?php
 
-class DbConnect {
+class Db_Connect {
     /**
      * @var DbConnect
      */

@@ -24,7 +24,7 @@ class Router {
             require_once $this->_config[$route]['filename'];
         }
 
-        return $this->_config[$route]['class'];
+        return $this->_config[$route];
     }
 }
 

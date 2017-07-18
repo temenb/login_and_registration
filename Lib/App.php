@@ -1,8 +1,6 @@
 <?php
 
-require_once 'action/iaction.php';
-
-class Application {
+class App {
 
     private $_router;
 
@@ -18,7 +16,8 @@ class Application {
     {
         $actionName = $this->_router->getActionName();
         $action = new $actionName;
-        if ($action instanceof IAction) {
+
+        if ($action instanceof Action_IAction) {
             $action->run();
             echo $action->getHtml();
         }

@@ -1,10 +1,8 @@
 <?php
 
-require_once 'action/abstract.php';
+class Action_Login extends Action_Abstract {
 
-class ActionLogin extends ActionAbstract {
-
-    public $viewTemplate = 'view/login.phtml';
+    public $viewTemplate = 'View/login.phtml';
 
     public function run() {
         $this->title = 'login';
@@ -32,9 +30,10 @@ class ActionLogin extends ActionAbstract {
 
                 if ($row) {
                     $row += array('salt' => '', 'password' => '');
-//        var_export($row);
                     if (md5($password . $row['salt']) == $row['password']) {
-                        $this->messages['success'][] = 'congrads, you are logged in!!';
+                        $_SESSION['user']['id'] = $row['id'];
+                        header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=main');
+                        exit;
                     } else {
                         $this->messages['errors'][] = 'authorization failed';
                     }
