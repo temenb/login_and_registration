@@ -5,7 +5,6 @@ class Action_Main extends Action_Abstract {
     public $viewTemplate = 'View/main.phtml';
 
     public function run() {
-        session_start();
         if (!(isset($_SESSION['user']['id']) && $_SESSION['user']['id'])) {
             header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=login');
         }

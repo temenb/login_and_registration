@@ -18,6 +18,7 @@ class App {
         $action = new $actionName;
 
         if ($action instanceof Action_IAction) {
+            session_start();
             $action->run();
             echo $action->getHtml();
         }
