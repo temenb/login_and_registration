@@ -2,7 +2,7 @@
 
 class Db_Connect {
     /**
-     * @var DbConnect
+     * @var Db_Connect
      */
     private static $_instance;
     
@@ -24,7 +24,7 @@ class Db_Connect {
     private function __wakeup() {}
     
     /**
-     * @return DbConnect
+     * @return Db_Connect
      */
     public static function getInstance() {
         if (null === self::$_instance) {

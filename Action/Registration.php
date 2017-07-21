@@ -37,7 +37,7 @@ class Action_Registration extends Action_Abstract
                 $validaton = false;
             }
 
-            $dbLink = DbConnect::getInstance()->getLink();
+            $dbLink = Db_Connect::getInstance()->getLink();
 
             if ($stmt = mysqli_prepare($dbLink, "select * from user where email= ?")) {
 

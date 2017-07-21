@@ -9,7 +9,7 @@ class Action_Main extends Action_Abstract {
         if (!(isset($_SESSION['user']['id']) && $_SESSION['user']['id'])) {
             header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=login');
         }
-        $dbLink = DbConnect::getInstance()->getLink();
+        $dbLink = Db_Connect::getInstance()->getLink();
         if ($stmt = mysqli_prepare($dbLink, "select * from post")) {
             mysqli_stmt_execute($stmt);
 

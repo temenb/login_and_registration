@@ -11,7 +11,7 @@ class Action_Login extends Action_Abstract {
             $password = (string) isset($_POST['password']) ? trim($_POST['password']) : '';
 
             /* создаем подготавливаемый запрос */
-            $dbLink = DbConnect::getInstance()->getLink();
+            $dbLink = Db_Connect::getInstance()->getLink();
             if ($stmt = mysqli_prepare($dbLink, "select * from user where email= ?")) {
 
                 /* связываем параметры с метками */

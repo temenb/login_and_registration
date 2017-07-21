@@ -30,7 +30,7 @@ class Action_Addpost extends Action_Abstract
                 $validaton = false;
             }
 
-            $dbLink = DbConnect::getInstance()->getLink();
+            $dbLink = Db_Connect::getInstance()->getLink();
 
             if ($validaton) {
                 /* создаем подготавливаемый запрос */
