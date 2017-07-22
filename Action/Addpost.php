@@ -12,8 +12,9 @@ class Action_Addpost extends Action_Abstract
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
             $title = (string)isset($_POST['title']) ? trim($_POST['title']) : '';
-            $teaser = (string)isset($_POST['teaser']) ? trim($_POST['teaser']) : '';
             $text = (string)isset($_POST['text']) ? trim($_POST['text']) : '';
 
 
@@ -33,14 +34,18 @@ class Action_Addpost extends Action_Abstract
                 /* создаем подготавливаемый запрос */
 
                 $teaser = substr($text, 0, $this->teaserLength);
+                $newFileName = 'Uploads/' . uniqid() . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                if (!move_uploaded_file($_FILES['image']['tmp_name'], $newFileName)) {
+                    $newFileName = '';
+                }
                 $stmt = mysqli_prepare(
                     $dbLink,
-                    "INSERT INTO post (title, text, teaser, user_id) VALUES (?,?,?,?)"
+                    "INSERT INTO post (title, text, teaser, user_id, file) VALUES (?,?,?,?,?)"
                 );
                 if ($stmt) {
 
                     $userId = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0;
-                    mysqli_stmt_bind_param($stmt, "sssi", $title, $teaser, $text, $userId);
+                    mysqli_stmt_bind_param($stmt, "sssis", $title, $teaser, $text, $userId, $newFileName);
 
                     /* запускаем запрос */
                     $success = mysqli_stmt_execute($stmt);
