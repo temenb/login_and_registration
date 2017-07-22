@@ -3,9 +3,10 @@
 class Action_Addpost extends Action_Abstract
 {
 
-    public $title = 'registration';
+    public $title = 'Add post';
+    public $teaserLength = 250;
 
-    public $viewTemplate = 'View/registration.phtml';
+    public $viewTemplate = 'View/addpost.phtml';
 
     public function run()
     {
@@ -21,10 +22,6 @@ class Action_Addpost extends Action_Abstract
                 $this->messages['errors'][] = 'Text shouldn\'t be empty';
                 $validaton = false;
             }
-            if (empty($teaser)) {
-                $this->messages['errors'][] = 'Text shouldn\'t be empty';
-                $validaton = false;
-            }
             if (empty($text)) {
                 $this->messages['errors'][] = 'Text shouldn\'t be empty';
                 $validaton = false;
@@ -34,30 +31,23 @@ class Action_Addpost extends Action_Abstract
 
             if ($validaton) {
                 /* создаем подготавливаемый запрос */
+
+                $teaser = substr($text, 0, $this->teaserLength);
                 $stmt = mysqli_prepare(
                     $dbLink,
-                    "INSERT INTO user (email, password, salt) VALUES (?,?,?)"
+                    "INSERT INTO post (title, text, teaser, user_id) VALUES (?,?,?,?)"
                 );
                 if ($stmt) {
 
-                    $salt = md5(mt_rand());
-                    $encryptedPassword = md5($password . $salt);
-                    /* связываем параметры с метками */
-                    mysqli_stmt_bind_param($stmt, "sss", $email, $encryptedPassword, $salt);
+                    $userId = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0;
+                    mysqli_stmt_bind_param($stmt, "sssi", $title, $teaser, $text, $userId);
 
                     /* запускаем запрос */
                     $success = mysqli_stmt_execute($stmt);
-                    if ($success) {
-                        $this->messages['success'][] = 'Congrads, you are in!';
-                    } else {
-                        $this->messages['errors'][] = 'smth went wrong with database';
-                        //$this->messages['errors'][] = mysqli_error($dbLink) ;//newer show database errors responce to user
-                    }
                     /* закрываем запрос */
                     mysqli_stmt_close($stmt);
                 }
             }
-            $this->email = $email;
         }
     }
 }

@@ -3,6 +3,7 @@
 
 abstract class Action_Abstract implements Action_IAction {
 
+    private $_app;
     public $messages = array(
         'errors' => array(),
         'success' => array(),
@@ -34,6 +35,10 @@ abstract class Action_Abstract implements Action_IAction {
     public function __get($name)
     {
         return isset($this->_view[$name]) ? $this->_view[$name] : "";
+    }
+
+    public function getUrl($actionName) {
+        return App::getInstance()->getRouter()->getUrlByClassname($actionName);
     }
 }
 

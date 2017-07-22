@@ -26,6 +26,10 @@ class Router {
 
         return $this->_config[$route];
     }
+
+    public function getUrlByClassname($className) {
+        return array_search($className, $this->_config);
+    }
 }
 
 /*

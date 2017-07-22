@@ -7,6 +7,7 @@ $routerConfig = require 'Config/router.php';
 $router = new Router($routerConfig);
 $router->setDefaultRoute('');
 
-$app = new App($router);
+$app = App::getInstance();
+$app->setRouter($router);
 
 $app->run();

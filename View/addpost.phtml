@@ -1,0 +1,10 @@
+<form action="?r=<?php echo $this->getUrl('Action_Addpost')?>" method="post">
+    <label for="title">Title:</label>
+    <input id="title" type="text" name="title" placeholder="title" /><br />
+    <label for="text">Text:</label>
+    <textarea id="text" name="text" placeholder="text" ></textarea><br />
+    <input type="submit" />
+</form>
+<br>
+<br>
+<a href="?r=<?php echo $this->getUrl('Action_Main')?>">Main page</a>
