@@ -7,7 +7,7 @@ class Action_Main extends Action_Abstract {
 
     public function run() {
         if (!(isset($_SESSION['user']['id']) && $_SESSION['user']['id'])) {
-            header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=login');
+            header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=' . $this->getUrl('Action_Login'));
         }
         $dbLink = Db_Connect::getInstance()->getLink();
         if ($stmt = mysqli_prepare($dbLink, "select p.id post_id, p.*, u.* from post p left join user u on p.user_id=u.id")) {

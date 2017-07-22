@@ -46,6 +46,8 @@ class Action_Addpost extends Action_Abstract
                     $success = mysqli_stmt_execute($stmt);
                     /* закрываем запрос */
                     mysqli_stmt_close($stmt);
+
+                    header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=' . $this->getUrl(get_class()));
                 }
             }
         }

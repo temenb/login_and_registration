@@ -6,7 +6,7 @@ class Action_Post extends Action_Abstract {
 
     public function run() {
         if (!(isset($_SESSION['user']['id']) && $_SESSION['user']['id'])) {
-            header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=login');
+            header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=' . $this->getUrl('Action_Login'));
         }
         if (!(isset($_REQUEST['id']) && $_REQUEST['id'])) {
             header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME']);
