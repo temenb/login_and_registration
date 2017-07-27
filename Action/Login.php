@@ -31,7 +31,11 @@ class Action_Login extends Action_Abstract {
                 if ($row) {
                     $row += array('salt' => '', 'password' => '');
                     if (md5($password . $row['salt']) == $row['password']) {
-                        $_SESSION['user']['id'] = $row['id'];
+                        $_SESSION['user'] = $row;
+                        if ($_POST['remember_me']) {
+                            setcookie('userlogin', $row['email'], time() + 10*365*24*60*60);
+                            setcookie('keylogin', md5($row['password'].$row['salt']), time() + 10*365*24*60*60);
+                        }
                         header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=' . $this->getUrl('Action_Main'));
                         exit;
                     } else {
