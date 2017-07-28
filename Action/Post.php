@@ -5,7 +5,7 @@ class Action_Post extends Action_Abstract {
     public $viewTemplate = 'View/post.phtml';
 
     public function run() {
-        if (!(isset($_SESSION['user']['id']) && $_SESSION['user']['id'])) {
+        if (App::getUser()->isAnonimus()) {
             header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=' . $this->getUrl('Action_Login'));
         }
         if (!(isset($_REQUEST['id']) && $_REQUEST['id'])) {

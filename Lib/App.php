@@ -9,41 +9,12 @@ class App {
 
     private $_router;
 
+    private static $_user;
+
     private function __construct() {}
 
     public function setRouter(Router $router) {
         $this->_router = $router;
-    }
-
-    protected function restoreAuthorization()
-    {
-        if (!isset($_SESSION['user']) && isset($_COOKIE['userlogin']) && isset($_COOKIE['keylogin'])) {
-            $dbLink = Db_Connect::getInstance()->getLink();
-            if ($stmt = mysqli_prepare($dbLink, "select * from user where email= ?")) {
-
-                /* связываем параметры с метками */
-                mysqli_stmt_bind_param($stmt, "s", $_COOKIE['userlogin']);
-
-                /* запускаем запрос */
-                mysqli_stmt_execute($stmt);
-
-                $result = mysqli_stmt_get_result($stmt);
-                /* получаем значения */
-                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-
-                /* закрываем запрос */
-                mysqli_stmt_close($stmt);
-
-                if ($row) {
-                    $row += array('salt' => '', 'password' => '');
-                    if (md5($row['password'] . $row['salt']) == $_COOKIE['keylogin']) {
-                        $_SESSION['user'] = $row;
-
-                    }
-                }
-            }
-        }
     }
 
     private function __clone() {}
@@ -66,7 +37,8 @@ class App {
 
         if ($action instanceof Action_IAction) {
             session_start();
-            $this->restoreAuthorization();
+            self::$_user = new User(isset($_SESSION[User::SESSION_KEY]) ? $_SESSION[User::SESSION_KEY] : array());
+            self::$_user->restoreAuthorization();
             $action->run();
             echo $action->getHtml();
         }
@@ -78,5 +50,12 @@ class App {
      */
     public function getRouter() {
         return $this->_router;
+    }
+
+    /**
+     * @return User
+     */
+    public static function getUser() {
+        return self::$_user;
     }
 }

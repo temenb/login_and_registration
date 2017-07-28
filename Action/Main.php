@@ -6,7 +6,7 @@ class Action_Main extends Action_Abstract {
     public $viewTemplate = 'View/main.phtml';
 
     public function run() {
-        if (!(isset($_SESSION['user']['id']) && $_SESSION['user']['id'])) {
+        if (App::getUser()->isAnonimus()) {
             header('Location: ' . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '?r=' . $this->getUrl('Action_Login'));
         }
         $dbLink = Db_Connect::getInstance()->getLink();

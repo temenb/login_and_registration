@@ -39,7 +39,7 @@ class Action_Addpost extends Action_Abstract
                 );
                 if ($stmt) {
 
-                    $userId = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0;
+                    $userId = App::getUser()->getData('id');
                     mysqli_stmt_bind_param($stmt, "sssi", $title, $teaser, $text, $userId);
 
                     /* запускаем запрос */
