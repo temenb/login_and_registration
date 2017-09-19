@@ -1,11 +1,10 @@
-<form action="?r=<?php echo $this->getUrl('Action_Login')?>" method="post">
+<form action="<?php echo $this->getUrl('authorization', 'login')?>" method="post">
     <label for="email">Email:</label>
     <input id="email" type="text" name="email" placeholder="email" 
            value="<?php echo htmlspecialchars($this->email) ?>"
            /><br />
     <label for="pqssword">Password:</label>
     <input name="password" type="password" /><br />
-    <input name="remember_me" type="checkbox" /> Remenber Me<br />
     <input type="submit" /><br />
-    <a href="?r=<?php echo $this->getUrl('Action_Registration')?>">Regisration</a>
+    <a href="<?php echo $this->getUrl('authorization', 'registration')?>">Regisration</a>
 </form>

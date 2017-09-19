@@ -1,4 +1,4 @@
-<form action="?r=<?php echo $this->getUrl('Action_Registration')?>" method="post">
+<form action="<?php echo $this->getUrl('authorization', 'registration')?>" method="post">
     <label for="email">Email:</label>
     <input id="email" type="text" name="email" placeholder="email" 
         value="<?php echo htmlspecialchars($this->email) ?>"
@@ -10,4 +10,5 @@
     <label for="password_confirmation">Confirm password:</label>
     <input id="password_confirmation" type="password" name="password_confirmation" /><br />
     <input type="submit" />
+    <a href="<?php echo $this->getUrl('authorization', 'login')?>">Log in</a>
 </form>

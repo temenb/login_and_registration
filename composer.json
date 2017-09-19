@@ -1,0 +1,14 @@
+{
+  "name": "login-and-registration",
+  "require": {
+    "doctrine/orm": "*",
+    "phpunit/phpunit": "*",
+    "squizlabs/php_codesniffer": "*"
+  },
+  "authors": [
+    {
+      "name": "temenb",
+      "email": "temenb@gmail.com"
+    }
+  ]
+}

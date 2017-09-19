@@ -1,7 +1,0 @@
-<?php foreach ($this->posts as $post): ?>
-    <p><b><a href="?r=<?php echo $this->getUrl('Action_Post')?>&id=<?php echo $post['post_id']?>"><?php echo $post['title'] ?></a></b></p>
-    <p><?php echo $post['text'] ?></p>
-    <p>author: <?php echo $post['email'] ?></p><br/>
-<?php endforeach ?>
-
-<a href="?r=<?php echo $this->getUrl('Action_Addpost')?>">Add new post</a>
