@@ -12,6 +12,17 @@ use Core\App;
  **/
 class User
 {
+    const EMAIL_REG_EXPR = '/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:'
+        .'(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-'
+        .'\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*'
+        .'\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C'
+        .'\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?'
+        .'[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|'
+        .'(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}'
+        .'(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}'
+        .'(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}'
+        .'(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])'
+        .'|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD';
     /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
 
@@ -130,11 +141,14 @@ class User
     {
         $this->errors = array();
         if (empty($this->email)) {
-            $this->errors[] = 'Emails shouldn\'t be empty';
+            $this->errors[] = 'Emails shouldn\'t be empty.';
+        }
+        if (!preg_match(self::EMAIL_REG_EXPR, $this->email)) {
+            $this->errors[] = 'Email is not valid.';
         }
         $entityManager = App::getEntityManager();
         if (('prePersist' == $scenario) &&empty($this->plainPassword)) {
-            $this->errors[] = 'Password shouldn\'t be empty';
+            $this->errors[] = 'Password shouldn\'t be empty.';
         }
 
         $queryBuilder = $entityManager->createQueryBuilder()

@@ -28,10 +28,10 @@ class Authorization extends AController
                     $this->redirect('main', 'main');
                     return;
                 } else {
-                    $this->messages['errors'][] = 'authorization failed';
+                    $this->messages['errors'][] = 'authorization failed.';
                 }
             } else {
-                $this->messages['errors'][] = 'authorization failed';
+                $this->messages['errors'][] = 'authorization failed.';
             }
 
             $this->email = $email;
@@ -59,10 +59,10 @@ class Authorization extends AController
             $confirmPassword = (string)isset($_POST['password_confirmation']) ?
                 trim($_POST['password_confirmation']) : '';
             if ($email != $confirmEmail) {
-                $this->messages['errors'][] = 'Emails don\'t match';
+                $this->messages['errors'][] = 'Emails don\'t match.';
             }
             if ($password != $confirmPassword) {
-                $this->messages['errors'][] = 'Passwords don\'t match';
+                $this->messages['errors'][] = 'Passwords don\'t match.';
             }
 
             $entityManager = App::getEntityManager();
@@ -72,7 +72,7 @@ class Authorization extends AController
             $entityManager->persist($user);
             $errors = $user->getErrors();
             if ($errors) {
-                $this->messages['errors'] += $errors;
+                $this->messages['errors'] = array_merge($this->messages['errors'], $errors);
             } else {
                 $entityManager->flush();
             }
